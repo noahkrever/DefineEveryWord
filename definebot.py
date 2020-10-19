@@ -17,7 +17,7 @@ auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
 def addPTracking(screen_name):
-    with open(r'C:\Users\noahk\DefineEveryWordBot\PTracking.csv', mode='r') as infile:
+    with open(r'C:\Users\noahk\DefineEveryWord\PTracking.csv', mode='r') as infile:
         reader = csv.reader(infile)
         reader = list(reader)
         pdi = {rows[0]:int(rows[1]) for rows in reader}
@@ -33,19 +33,19 @@ def addPTracking(screen_name):
             else:
                 pdi[screen_name] = 1
 
-    with open(r'C:\Users\noahk\DefineEveryWordBot\PTracking.csv', 'w') as outfile:
+    with open(r'C:\Users\noahk\DefineEveryWord\PTracking.csv', 'w') as outfile:
         for key in pdi.keys():
             outfile.write("%s,%s\n"%(key,pdi[key]))
 
 def onBlockList(screen_name):
-    with open(r'C:\Users\noahk\DefineEveryWordBot\blocklist.txt', 'r') as read_obj:
+    with open(r'C:\Users\noahk\DefineEveryWord\blocklist.txt', 'r') as read_obj:
         for line in read_obj:
             if screen_name in line:
                 return True
     return False
 
 def addBlockList(screen_name):
-    b = open(r'C:\Users\noahk\DefineEveryWordBot\blocklist.txt', 'a')
+    b = open(r'C:\Users\noahk\DefineEveryWord\blocklist.txt', 'a')
     if not onBlockList(screen_name):
         b.write(screen_name)
         print("User ", screen_name, " added to block list.")
@@ -54,7 +54,7 @@ def addBlockList(screen_name):
     b.close()
 
 def killCheck(phrase):
-    k = open(r'C:\Users\noahk\DefineEveryWordBot\kill.txt', 'r')
+    k = open(r'C:\Users\noahk\DefineEveryWord\kill.txt', 'r')
     klist = []
 
     for line in k:
@@ -69,7 +69,7 @@ def killCheck(phrase):
     return False
 
 def pCheck(phrase):
-    p = open(r'C:\Users\noahk\DefineEveryWordBot\profanity.txt', 'r')
+    p = open(r'C:\Users\noahk\DefineEveryWord\profanity.txt', 'r')
     plist = []
 
     for line in p:
@@ -100,7 +100,7 @@ def defineWordBS(word): #beautifulsoup version, web-scrapes in case of TypeError
 
 
 def defineWord(word): #defines word directly from merriam-webster api if possible
-    keyfile = open(r"C:\Users\noahk\DefineEveryWordBot\mwkey.txt", 'r')
+    keyfile = open(r"C:\Users\noahk\DefineEveryWord\mwkey.txt", 'r')
     keys = keyfile.readline()
     word = str(word)
     result=[]
@@ -150,18 +150,18 @@ def defineWord(word): #defines word directly from merriam-webster api if possibl
 
 
 def getMediaID(word): #downloads and retrieves the media ID for an image of a requested word
-    d = os.listdir(r'C:\Users\noahk\DefineEveryWordBot\twitter-images')
+    d = os.listdir(r'C:\Users\noahk\DefineEveryWord\twitter-images')
     if len(d)!=0:
         for f in d:
-            os.remove(r'C:\Users\noahk\DefineEveryWordBot\twitter-images' + "\\"+ f)
-    keyfile = open(r"C:\Users\noahk\DefineEveryWordBot\gkey.txt", 'r')
+            os.remove(r'C:\Users\noahk\DefineEveryWord\twitter-images' + "\\"+ f)
+    keyfile = open(r"C:\Users\noahk\DefineEveryWord\gkey.txt", 'r')
     gkey = keyfile.readline()
-    cx_file = open(r"C:\Users\noahk\DefineEveryWordBot\cx_id.txt", 'r')
+    cx_file = open(r"C:\Users\noahk\DefineEveryWord\cx_id.txt", 'r')
     cx_id = str(cx_file.readline())
 
-    keyfile2 = open(r"C:\Users\noahk\DefineEveryWordBot\gkey2.txt", 'r')
+    keyfile2 = open(r"C:\Users\noahk\DefineEveryWord\gkey2.txt", 'r')
     gkey2 = keyfile2.readline()
-    cx_file2 = open(r"C:\Users\noahk\DefineEveryWordBot\cx_id2.txt", 'r')
+    cx_file2 = open(r"C:\Users\noahk\DefineEveryWord\cx_id2.txt", 'r')
     cx_id2 = str(cx_file2.readline())
 
     try:
@@ -178,14 +178,14 @@ def getMediaID(word): #downloads and retrieves the media ID for an image of a re
         }
 
         # this will search and download:
-        gis.search(search_params=_search_params, path_to_dir=r'C:\Users\noahk\DefineEveryWordBot\twitter-images')
+        gis.search(search_params=_search_params, path_to_dir=r'C:\Users\noahk\DefineEveryWord\twitter-images')
 
-        img = os.listdir(r'C:\Users\noahk\DefineEveryWordBot\twitter-images')[0]
-        img_file = r'C:\Users\noahk\DefineEveryWordBot\twitter-images' + "\\" + img
+        img = os.listdir(r'C:\Users\noahk\DefineEveryWord\twitter-images')[0]
+        img_file = r'C:\Users\noahk\DefineEveryWord\twitter-images' + "\\" + img
 
         media_list = []
 
-        p = open(r'C:\Users\noahk\DefineEveryWordBot\profanity.txt', 'r')
+        p = open(r'C:\Users\noahk\DefineEveryWord\profanity.txt', 'r')
         plist = []
         for line in p:
             plist.append(line.strip())
@@ -209,14 +209,14 @@ def getMediaID(word): #downloads and retrieves the media ID for an image of a re
         }
 
             # this will search and download:
-            gis.search(search_params=_search_params, path_to_dir=r'C:\Users\noahk\DefineEveryWordBot\twitter-images')
+            gis.search(search_params=_search_params, path_to_dir=r'C:\Users\noahk\DefineEveryWord\twitter-images')
 
-            img = os.listdir(r'C:\Users\noahk\DefineEveryWordBot\twitter-images')[0]
-            img_file = r'C:\Users\noahk\DefineEveryWordBot\twitter-images' + "\\" + img
+            img = os.listdir(r'C:\Users\noahk\DefineEveryWord\twitter-images')[0]
+            img_file = r'C:\Users\noahk\DefineEveryWord\twitter-images' + "\\" + img
 
             media_list = []
 
-            p = open(r'C:\Users\noahk\DefineEveryWordBot\profanity.txt', 'r')
+            p = open(r'C:\Users\noahk\DefineEveryWord\profanity.txt', 'r')
             plist = []
             for line in p:
                 plist.append(line.strip())
@@ -231,10 +231,10 @@ def getMediaID(word): #downloads and retrieves the media ID for an image of a re
 
 
 def deleteImage():
-    d = os.listdir(r'C:\Users\noahk\DefineEveryWordBot\twitter-images')
+    d = os.listdir(r'C:\Users\noahk\DefineEveryWord\twitter-images')
     if len(d)==1:
         img = d[0]
-        img_file = r'C:\Users\noahk\DefineEveryWordBot\twitter-images' + "\\" + img
+        img_file = r'C:\Users\noahk\DefineEveryWord\twitter-images' + "\\" + img
         os.remove(img_file)
 
 def makeTweets(word,most_recent_id): #tweets reply with definition, and tweets out own definition
